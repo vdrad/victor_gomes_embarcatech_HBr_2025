@@ -18,5 +18,4 @@ Cada projeto tem sua própria pasta, contendo o código-fonte, documentação e 
 
 ---
 
-## 📁 Lista de Projetos
-- [Remedicine]()
+## 📁 Lista de Projetos [Em breve]
