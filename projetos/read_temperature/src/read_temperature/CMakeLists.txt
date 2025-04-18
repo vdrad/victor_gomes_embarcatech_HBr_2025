@@ -23,7 +23,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico2 CACHE STRING "Board type")
+set(PICO_BOARD pico_w CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -36,8 +36,10 @@ pico_sdk_init()
 # Add executable. Default name is the project name, version 0.1
 
 add_executable(read_temperature read_temperature.c 
+        inc/pinout.c
         inc/oled_display/ssd1306_i2c.c
         inc/oled_display/oled_display.c
+        inc/buttons/buttons.c
     )
 
 pico_set_program_name(read_temperature "read_temperature")
@@ -49,7 +51,8 @@ pico_enable_stdio_usb(read_temperature 0)
 
 # Add the standard library to the build
 target_link_libraries(read_temperature
-        pico_stdlib)
+        pico_stdlib
+    )
 
 # Add the standard include files to the build
 target_include_directories(read_temperature PRIVATE
@@ -57,9 +60,11 @@ target_include_directories(read_temperature PRIVATE
 )
 
 # Add any user requested libraries
-target_link_libraries(decreasing_counter 
+target_link_libraries(read_temperature 
+        hardware_timer
+        hardware_clocks
+        hardware_i2c
         hardware_adc
-    )
+        )
 
 pico_add_extra_outputs(read_temperature)
-
