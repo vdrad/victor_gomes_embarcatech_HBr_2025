@@ -28,35 +28,42 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(decreasing-counter C CXX ASM)
+project(decreasing_counter C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(decreasing-counter decreasing-counter.c )
+add_executable(decreasing_counter decreasing_counter.c 
+        inc/pinout.c
+        inc/oled_display/ssd1306_i2c.c
+        inc/oled_display/oled_display.c
+        inc/buttons/buttons.c
+    )
 
-pico_set_program_name(decreasing-counter "decreasing-counter")
-pico_set_program_version(decreasing-counter "0.1")
+pico_set_program_name(decreasing_counter "decreasing_counter")
+pico_set_program_version(decreasing_counter "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(decreasing-counter 0)
-pico_enable_stdio_usb(decreasing-counter 0)
+pico_enable_stdio_uart(decreasing_counter 0)
+pico_enable_stdio_usb(decreasing_counter 0)
 
 # Add the standard library to the build
-target_link_libraries(decreasing-counter
-        pico_stdlib)
+target_link_libraries(decreasing_counter
+        pico_stdlib
+    )
 
 # Add the standard include files to the build
-target_include_directories(decreasing-counter PRIVATE
+target_include_directories(decreasing_counter PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(decreasing-counter 
-        
+target_link_libraries(decreasing_counter 
+        hardware_timer
+        hardware_clocks
+        hardware_i2c
         )
 
-pico_add_extra_outputs(decreasing-counter)
-
+pico_add_extra_outputs(decreasing_counter)
