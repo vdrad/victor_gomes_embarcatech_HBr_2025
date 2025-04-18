@@ -35,7 +35,10 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(read_temperature read_temperature.c )
+add_executable(read_temperature read_temperature.c 
+        inc/oled_display/ssd1306_i2c.c
+        inc/oled_display/oled_display.c
+    )
 
 pico_set_program_name(read_temperature "read_temperature")
 pico_set_program_version(read_temperature "0.1")
@@ -52,6 +55,11 @@ target_link_libraries(read_temperature
 target_include_directories(read_temperature PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
 )
+
+# Add any user requested libraries
+target_link_libraries(decreasing_counter 
+        hardware_adc
+    )
 
 pico_add_extra_outputs(read_temperature)
 
