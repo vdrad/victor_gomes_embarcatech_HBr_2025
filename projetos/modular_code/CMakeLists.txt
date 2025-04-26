@@ -37,7 +37,18 @@ pico_sdk_init()
 
 add_executable(main
     app/main.c
+    drivers/led_embutido.c
+    hal/hal_led.c
     )
+
+# # Modify the below lines to enable/disable output over UART/USB
+# pico_enable_stdio_uart(modular_code 0)
+# pico_enable_stdio_usb(modular_code 1)
+
+# Add the standard include files to the build
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}
+)
 
 # pull in common dependencies
 target_link_libraries(main pico_stdlib)
