@@ -5,12 +5,9 @@
 int main() {
     stdio_init_all();
 
-    printf("Unity Test for Temeprature Reading ADC -> DEGC");
-    uint8_t result = temperature_unit_test();
-    if (result == 1) {
-        printf("TEST PASSED! Temperature Reading: %f", adc_to_celsius(0.706));
-    } else {
-        printf("TEST FAILED! Temperature Reading: %f | Expected: 26.8 °C ~ 27.2 °C", adc_to_celsius(0.706));
+    while (true) {
+        temperature_unit_test();
+        sleep_ms(5000);
     }
 
     return 0;

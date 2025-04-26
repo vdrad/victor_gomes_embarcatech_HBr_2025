@@ -37,15 +37,14 @@ pico_sdk_init()
 
 add_executable(unit_test unit_test.c 
         inc/temperature/temperature.c
-        inc/unity/unity.c
     )
 
 pico_set_program_name(unit_test "unit_test")
 pico_set_program_version(unit_test "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(unit_test 0)
-pico_enable_stdio_usb(unit_test 0)
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+pico_enable_stdio_uart(${PROJECT_NAME} 0)
 
 # Add the standard library to the build
 target_link_libraries(unit_test

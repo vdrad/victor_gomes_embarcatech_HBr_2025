@@ -1,5 +1,6 @@
 #include "temperature.h"
 #include <math.h>
+#include <stdio.h>             // Biblioteca padrão para entrada e saída, utilizada para printf.
 
 // Função para converter o valor lido do ADC para temperatura em graus Fahrenheint
 float adc_to_celsius(uint16_t adc_val) {
@@ -11,11 +12,15 @@ float adc_to_celsius(uint16_t adc_val) {
     return temperature;
 }
 
-uint8_t temperature_unit_test() {
-    // 0.706V ~= 27 °C
-    float result = adc_to_celsius(0.706);
+void temperature_unit_test() {
+    // 0.706V ~= 876 (ADC) ~= 27 °C
     float margin = 0.2;
+    float result = adc_to_celsius(876);
 
-    if (fabs(result - 27.0f) <= margin) return 1;
-    return -1;
+    printf("\nUnity Test for Temeprature Reading ADC -> °C \n");
+    if (fabs(result - 27.0f) <= margin) {
+        printf("TEST PASSED! Temperature Reading: %.2f \n", adc_to_celsius(876));
+    } else {
+        printf("TEST FAILED! Temperature Reading: %.2f | Expected: 26.8 °C ~ 27.2 °C \n", adc_to_celsius(876));
+    }
 }

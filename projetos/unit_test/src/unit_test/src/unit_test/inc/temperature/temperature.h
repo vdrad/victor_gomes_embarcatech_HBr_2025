@@ -7,6 +7,6 @@
 #define ADC_TEMPERATURE_CHANNEL 4 // Canal do ADC vinculado ao sensor interno de temperatura
 
 float adc_to_celsius(uint16_t adc_val);
-uint8_t temperature_unit_test();
+void temperature_unit_test();
 
 #endif // TEMPERATURE_H
